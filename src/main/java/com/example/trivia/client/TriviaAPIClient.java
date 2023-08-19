@@ -12,8 +12,18 @@ import reactor.core.publisher.Flux;
 
 import java.util.List;
 
+/**
+ * Trivia API Client Interface
+ */
 public interface TriviaAPIClient {
-
+    /**
+     * Obtain random questions by category and difficulty
+     *
+     * @param amount     Amount of questions to obtain
+     * @param catergories Categories to filter
+     * @param difficulty Difficulty to filter
+     * @return Questions
+     */
     Flux<Question> obtainQuestions(Integer amount, List<GameCategory> catergories, GameDifficulty difficulty);
 
 }

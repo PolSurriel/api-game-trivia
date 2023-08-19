@@ -1,5 +1,10 @@
 package com.example.trivia.model.enums;
 
+/**
+ * Game Difficulty
+ *
+ * BE CAREFUL: This enum is used in the api trivia and the database, the values must be the same.
+ */
 public enum GameDifficulty {
     EASY("easy"),
     MEDIUM("medium"),

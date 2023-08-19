@@ -6,12 +6,24 @@ import com.example.trivia.model.enums.GameCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * Game DTO Mapper
+ */
 @Component
 public class GameDTOMapper {
 
+    /**
+     * Question DTO Mapper
+     */
     @Autowired
     private QuestionDTOMapper questionDTOMapper;
 
+    /**
+     * Map Game to GameDTO
+     *
+     * @param model Game
+     * @return GameDTO
+     */
     public GameDTO map(Game model){
         GameDTO gameDTO = new GameDTO();
         gameDTO.setCategories(model.getCategories()

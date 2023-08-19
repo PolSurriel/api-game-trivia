@@ -11,12 +11,24 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Stream;
 
+/**
+ * Question Mapper
+ */
 @Component
 public class QuestionMapper {
 
+    /**
+     * Answer Mapper
+     */
     @Autowired
     AnswerMapper answerMapper;
 
+    /**
+     * Map Question Entity to Question
+     *
+     * @param entity Question Entity
+     * @return Question
+     */
     public Question map(QuestionEntity entity){
         Question result = new Question();
         result.setId(entity.getId());

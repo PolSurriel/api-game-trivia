@@ -1,5 +1,10 @@
 package com.example.trivia.model.enums;
 
+/**
+ * Game Category enum.
+ *
+ * BE CAREFUL: The enum values are the trivia api possible values, do not change them.
+ */
 public enum GameCategory {
     MUSIC("music"),
     SPORT_AND_LEISURE("sport_and_leisure"),

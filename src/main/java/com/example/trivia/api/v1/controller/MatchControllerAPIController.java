@@ -19,19 +19,40 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * The API controller implementation for the MatchController.
+ * */
 @RestController()
 public class MatchControllerAPIController extends BaseRestController implements MatchControllerAPI{
 
+    /**
+     * The match service.
+     * */
     @Autowired
     private MatchService matchService;
-
+    /**
+     * The question info response mapper.
+     * */
     @Autowired
     private QuestionDTOMapper questionInfoResponseMapper;
+    /**
+     * The answer question result response mapper.
+     * */
     @Autowired
     private AnswerQuestionResultResponseMapper answerQuestionResultResponseMapper;
+    /**
+     * The game dto mapper.
+     * */
     @Autowired
     private GameDTOMapper gameDTOMapper;
 
+    /**
+     * Returns the information of the question.
+     *
+     *  @param gameId the id of the game.
+     *  @param questionId the id of the question.
+     *  @return the information of the question.
+     * */
     @Override
     public ResponseEntity<QuestionDTO> getQuestionInfo(Long gameId, Integer questionId) {
         Question question = matchService.getQuestionInfo(gameId, questionId);
@@ -42,6 +63,17 @@ public class MatchControllerAPIController extends BaseRestController implements 
         );
     }
 
+
+    /**
+     * Stores the user’s answer and returns the ID of
+     * the wright answer. Chosen answer ID will be sent as a request body.
+     * Important: A question cannot be answered twice: if a user sends an answer for an
+     * already answered question, an error is thrown
+     *
+     *  @param gameId the id of the game.
+     *  @param questionId the id of the question.
+     *  @return the information of the question.
+     * */
     @Override
     public ResponseEntity<AnswerQuestionResultResponse> answerQuestion(Long gameId, Integer questionId, AwnserRequest answer) {
         AnswerQuestionResult result = matchService.submitAnswer(gameId, questionId, answer.getAnswerId());
@@ -52,12 +84,24 @@ public class MatchControllerAPIController extends BaseRestController implements 
         );
     }
 
+    /**
+     * Finishes the game marking it as finished.
+     *
+     *  @param gameId the id of the game.
+     *  @return the http status of the request.
+     * */
     @Override
     public ResponseEntity<HttpStatus> finishGame(Long gameId) {
         matchService.finishFame(gameId);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    /**
+     * Returns the information of the game searched by id.
+     *
+     *  @param gameId the id of the game.
+     *  @return the information of the game.
+     * */
     @Override
     public ResponseEntity<GameDTO> getGameById(Long gameId) {
         Game game = matchService.getGameById(gameId);
@@ -68,6 +112,12 @@ public class MatchControllerAPIController extends BaseRestController implements 
         );
     }
 
+    /**
+     * Creates a new game with the given configuration.
+     *
+     *  @param gameConfig the configuration of the game.
+     *  @return the information of the game.
+     * */
     @Override
     public ResponseEntity<GameDTO> createNewGame(GameConfigRequest gameConfig) {
         Game game = matchService.createGame(

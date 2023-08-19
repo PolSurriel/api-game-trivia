@@ -24,27 +24,54 @@ import reactor.core.publisher.Flux;
 
 import java.util.List;
 
+/**
+ * Match Service Implementation
+ */
 @Slf4j
 @Service
 public class MatchServiceImpl implements MatchService {
 
+    /**
+     * Game Repository
+     */
     @Autowired
     GameRepository gameRepository;
+    /**
+     * Question Repository
+     */
     @Autowired
     QuestionRepository questionRepository;
-
+    /**
+     * Answer Repository
+     */
     @Autowired
     AnswerRepository answerRepository;
+    /**
+     * Question Entity Mapper
+     */
     @Autowired
     QuestionEntityMapper questionEntityMapper;
+    /**
+     * Question Mapper
+     */
     @Autowired
     QuestionMapper questionMapper;
+    /**
+     * Game Mapper
+     */
     @Autowired
     GameMapper gameEntityMapper;
-
+    /**
+     * Trivia API Client
+     */
     @Autowired
     TriviaAPIClient triviaAPIClient;
 
+    /**
+     * Get Game by Id
+     * @param gameId game id
+     * @return
+     */
     @Override
     public Game getGameById(Long gameId) {
         GameEntity game = gameRepository.findById(gameId).orElseThrow(() -> new RuntimeException("Game not found"));
@@ -52,6 +79,11 @@ public class MatchServiceImpl implements MatchService {
         return gameEntityMapper.map(game);
     }
 
+    /**
+     * Fetch a Question and creates it if not exists
+     * @param question
+     * @return
+     */
     private QuestionEntity fetchQuestion(Question question) {
 
         // 1. Check if question exists in our Question repository finding it by apiId
@@ -70,6 +102,13 @@ public class MatchServiceImpl implements MatchService {
         return questionEntity;
     }
 
+    /**
+     * Create a new game
+     * @param numberOfQuestions number of questions
+     * @param difficulty difficulty
+     * @param categories categories
+     * @return
+     */
     @Override
     public Game createGame(Integer numberOfQuestions, GameDifficulty difficulty, List<GameCategory> categories) {
         GameEntity newGame = new GameEntity();
@@ -106,7 +145,13 @@ public class MatchServiceImpl implements MatchService {
     }
 
 
-
+    /**
+     * Submit an answer to a question
+     * @param gameId game id
+     * @param questionIndex question index
+     * @param answerId answer id
+     * @return
+     */
     @Override
     public AnswerQuestionResult submitAnswer(Long gameId, Integer questionIndex, Long answerId) {
 
@@ -150,6 +195,12 @@ public class MatchServiceImpl implements MatchService {
         return response;
     }
 
+    /**
+     * Get the question info
+     * @param gameId game id
+     * @param questionIndex question index
+     * @return
+     */
     @Override
     public Question getQuestionInfo(Long gameId, Integer questionIndex) {
         GameEntity game = gameRepository.findById(gameId).orElseThrow(() -> new RuntimeException("Game not found"));
@@ -165,6 +216,10 @@ public class MatchServiceImpl implements MatchService {
         return questionMapper.map(gameQuestion.getQuestion());
     }
 
+    /**
+     * Get the game info
+     * @param gameId game id
+     */
     @Override
     public void finishFame(Long gameId) {
         GameEntity game = gameRepository.findById(gameId).orElseThrow(() -> new RuntimeException("Game not found"));

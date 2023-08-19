@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import static com.example.trivia.api.v1.controller.MatchControllerAPI.MATCH_TAG;
 
+/**
+ * The API controller for the MatchController.
+ * */
 @Validated
 @Api(tags = {MATCH_TAG})
 public interface MatchControllerAPI {
@@ -35,9 +38,9 @@ public interface MatchControllerAPI {
             tags={ MATCH_TAG }
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successful operation", response = QuestionDTO.class),
-            @ApiResponse(code = 400, message = "Invalid IDs supplied"),
-            @ApiResponse(code = 404, message = "Question not found") }
+            @ApiResponse(code = 200, message = APIDoc.RESPONSE_MESSAGE_OK +" question found", response = QuestionDTO.class),
+            @ApiResponse(code = 400, message = APIDoc.RESPONSE_MESSAGE_BAD_REQUEST +"Invalid IDs supplied"),
+            @ApiResponse(code = 404, message = APIDoc.RESPONSE_MESSAGE_NOT_FOUND+" Question not found") }
     )
     @GetMapping(
             value = "/game/{gameId}/question/{questionId}",
@@ -64,9 +67,9 @@ public interface MatchControllerAPI {
             tags={ MATCH_TAG }
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful operation", response = AnswerQuestionResultResponse.class),
-            @ApiResponse(code = 400, message = "Invalid IDs supplied"),
-            @ApiResponse(code = 404, message = "Game/Question not found") }
+            @ApiResponse(code = 201, message = APIDoc.RESPONSE_MESSAGE_CREATED +" question answered", response = AnswerQuestionResultResponse.class),
+            @ApiResponse(code = 400, message = APIDoc.RESPONSE_MESSAGE_BAD_REQUEST +" Invalid IDs supplied"),
+            @ApiResponse(code = 404, message = APIDoc.RESPONSE_MESSAGE_NOT_FOUND+" Game/Question not found") }
     )
     @PostMapping(
             value = "/game/{gameId}/question/{questionId}",
@@ -96,9 +99,9 @@ public interface MatchControllerAPI {
             tags={ MATCH_TAG }
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful operation", response = HttpStatus.class),
-            @ApiResponse(code = 400, message = "Invalid ID supplied"),
-            @ApiResponse(code = 404, message = "Game not found") }
+            @ApiResponse(code = 201, message = APIDoc.RESPONSE_MESSAGE_CREATED +" game marked as finished.", response = HttpStatus.class),
+            @ApiResponse(code = 400, message = APIDoc.RESPONSE_MESSAGE_BAD_REQUEST + " Invalid ID supplied"),
+            @ApiResponse(code = 404, message = APIDoc.RESPONSE_MESSAGE_NOT_FOUND+ " Game not found") }
     )
     @PostMapping(
             value = "/game/{gameId}/end",
@@ -121,9 +124,9 @@ public interface MatchControllerAPI {
             tags={ MATCH_TAG }
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successful operation", response = GameDTO.class),
-            @ApiResponse(code = 400, message = "Invalid ID supplied"),
-            @ApiResponse(code = 404, message = "Game not found") }
+            @ApiResponse(code = 200, message = APIDoc.RESPONSE_MESSAGE_OK +" game found", response = GameDTO.class),
+            @ApiResponse(code = 400, message = APIDoc.RESPONSE_MESSAGE_BAD_REQUEST +"Invalid ID supplied"),
+            @ApiResponse(code = 404, message = APIDoc.RESPONSE_MESSAGE_NOT_FOUND + "Game not found") }
     )
     @GetMapping(
             value = "/game/{gameId}",
@@ -143,8 +146,8 @@ public interface MatchControllerAPI {
             tags={ MATCH_TAG }
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful operation", response = GameDTO.class),
-            @ApiResponse(code = 400, message = "Invalid ID supplied")
+            @ApiResponse(code = 201, message = APIDoc.RESPONSE_MESSAGE_CREATED +" new game created", response = GameDTO.class),
+            @ApiResponse(code = 400, message = APIDoc.RESPONSE_MESSAGE_BAD_REQUEST +" Invalid ID supplied")
     })
     @PostMapping(
             value = "/game",

@@ -6,11 +6,33 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * Question DTO
+ */
 @Data
 public class QuestionDTO {
+    /**
+     * Question ID
+     */
     private Long id;
-    private String apiId;
+
+//    /**
+//     * Question Trivia API ID
+//     */
+//    private String apiId;
+
+    /**
+     * Question category
+     */
     private String category;
+
+    /**
+     * Question difficulty
+     */
     private String text;
+
+    /**
+     * Question difficulty
+     */
     private List<AnswerDTO> answers;
 }

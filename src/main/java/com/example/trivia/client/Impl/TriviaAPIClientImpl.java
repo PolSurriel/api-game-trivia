@@ -17,19 +17,45 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Trivia API Client Implementation
+ * Contains the implementation of the Trivia API Client to perform requests to the Trivia API.
+ *
+ * @see TriviaAPIClient
+ */
 @Component
 public class TriviaAPIClientImpl implements TriviaAPIClient {
+    /**
+     * Web client
+     */
     @Autowired
     WebClient webClient;
 
+    /**
+     * Trivia API Base URL
+     */
     @Value("${trivia.api.url}")
     private String triviaAPIBaseURL;
 
+    /**
+     * Question mapper
+     */
     @Autowired
     private QuestionMapper questionMapper;
 
+    /**
+     * Endpoint to obtain questions by category and difficulty
+     */
     private final String ENDPOINT_QUESTIONS_BY_CATEGORY_AND_DIFFICULTY = "questions";
 
+    /**
+     * Obtain random questions by category and difficulty
+     *
+     * @param amount     Amount of questions to obtain
+     * @param categories Categories to filter
+     * @param difficulty Difficulty to filter
+     * @return Questions
+     */
     @Override
     public Flux<Question> obtainQuestions(Integer amount, List<GameCategory> categories, GameDifficulty difficulty){
 

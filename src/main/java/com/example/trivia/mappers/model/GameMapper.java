@@ -9,12 +9,23 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * Game Mapper
+ */
 @Component
 public class GameMapper {
 
+    /**
+     * Question Entity Mapper
+     */
     @Autowired
     QuestionMapper questionEntityMapper;
 
+    /** Map Game Entity to Game
+     *
+     * @param entity Game Entity
+     * @return Game
+     */
     public Game map (GameEntity entity){
         Game result = new Game();
         result.setId(entity.getId());

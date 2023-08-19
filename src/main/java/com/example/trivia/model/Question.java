@@ -6,13 +6,30 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
-
+/**
+ * Question
+ */
 @Data
 public class Question {
+    /**
+     * Question id
+     */
     private Long id;
+    /**
+     * Question trivia api id
+     */
     private String apiId;
+    /**
+     * Question category
+     */
     private GameCategory category;
+    /**
+     * Question text
+     */
     private String text;
+    /**
+     * Question answers
+     */
     private List<Answer> answers;
 
 }

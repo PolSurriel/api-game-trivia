@@ -8,13 +8,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+/**
+ * Question Entity Mapper
+ */
 @Component
 public class QuestionEntityMapper {
 
+    /**
+     * Answer Entity Mapper
+     */
     @Autowired
     AnswerEntityMapper answerEntityMapper;
 
+    /**
+     * Map Question to Question Entity
+     *
+     * @param model Question
+     * @return Question Entity
+     */
     public QuestionEntity map (Question model){
         QuestionEntity result = new QuestionEntity();
         result.setApiId(model.getApiId());
