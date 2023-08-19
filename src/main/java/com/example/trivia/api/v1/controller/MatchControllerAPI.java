@@ -3,9 +3,9 @@ package com.example.trivia.api.v1.controller;
 
 import com.example.trivia.api.v1.dto.request.AwnserRequest;
 import com.example.trivia.api.v1.dto.request.GameConfigRequest;
-import com.example.trivia.api.v1.dto.response.AwnserQuestionResultResponse;
-import com.example.trivia.api.v1.dto.response.GameResponse;
-import com.example.trivia.api.v1.dto.response.QuestionInfoResponse;
+import com.example.trivia.api.v1.dto.response.AnswerQuestionResultResponse;
+import com.example.trivia.api.v1.dto.GameDTO;
+import com.example.trivia.api.v1.dto.QuestionDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,11 +31,11 @@ public interface MatchControllerAPI {
                     "we will use the order field instead of the id to retrieve question information. Correct\n" +
                     "boolean shouldn't be sent because the POST endpoint will return the answer\n" +
                     "results.",
-            response = QuestionInfoResponse.class,
+            response = QuestionDTO.class,
             tags={ MATCH_TAG }
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successful operation", response = QuestionInfoResponse.class),
+            @ApiResponse(code = 200, message = "Successful operation", response = QuestionDTO.class),
             @ApiResponse(code = 400, message = "Invalid IDs supplied"),
             @ApiResponse(code = 404, message = "Question not found") }
     )
@@ -43,10 +43,10 @@ public interface MatchControllerAPI {
             value = "/game/{gameId}/question/{questionId}",
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    ResponseEntity<QuestionInfoResponse> getQuestionInfo(
+    ResponseEntity<QuestionDTO> getQuestionInfo(
             @ApiParam(value = "ID of the game",required=true)
             @PathVariable("gameId")
-            Integer gameId,
+            Long gameId,
 
             @ApiParam(value = "ID of the question to return",required=true)
             @PathVariable("questionId")
@@ -60,11 +60,11 @@ public interface MatchControllerAPI {
                     "the wright answer. Chosen answer ID will be sent as a request body.\n" +
                     "Important: A question cannot be answered twice: if a user sends an answer for an\n" +
                     "already answered question, an error is thrown",
-            response = AwnserQuestionResultResponse.class,
+            response = AnswerQuestionResultResponse.class,
             tags={ MATCH_TAG }
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful operation", response = AwnserQuestionResultResponse.class),
+            @ApiResponse(code = 201, message = "Successful operation", response = AnswerQuestionResultResponse.class),
             @ApiResponse(code = 400, message = "Invalid IDs supplied"),
             @ApiResponse(code = 404, message = "Game/Question not found") }
     )
@@ -72,10 +72,10 @@ public interface MatchControllerAPI {
             value = "/game/{gameId}/question/{questionId}",
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    ResponseEntity<AwnserQuestionResultResponse> answerQuestion(
+    ResponseEntity<AnswerQuestionResultResponse> answerQuestion(
             @ApiParam(value = "ID of the game",required=true)
             @PathVariable("gameId")
-            Integer gameId,
+            Long gameId,
 
             @ApiParam(value = "ID of the question to return",required=true)
             @PathVariable("questionId")
@@ -107,7 +107,7 @@ public interface MatchControllerAPI {
     ResponseEntity<HttpStatus> finishGame(
             @ApiParam(value = "ID of the game to finish",required=true)
             @PathVariable("gameId")
-            Integer gameId
+            Long gameId
     );
 
     @ApiOperation(
@@ -117,11 +117,11 @@ public interface MatchControllerAPI {
                     "endpoint POST /game. When the game is closed, the GameQuestion list with all\n" +
                     "the information is included in the response to compute the statistics (see “final\n" +
                     "screen in Frontend section)",
-            response = GameResponse.class,
+            response = GameDTO.class,
             tags={ MATCH_TAG }
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successful operation", response = GameResponse.class),
+            @ApiResponse(code = 200, message = "Successful operation", response = GameDTO.class),
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Game not found") }
     )
@@ -129,28 +129,28 @@ public interface MatchControllerAPI {
             value = "/game/{gameId}",
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    ResponseEntity<GameResponse> getGameById(
+    ResponseEntity<GameDTO> getGameById(
             @ApiParam(value = "ID of the game to return",required=true)
             @PathVariable("gameId")
-            Integer gameId
+            Long gameId
     );
 
     @ApiOperation(
             value = "Create a new game.",
             nickname = "createNewGame",
             notes = "Creates a new game and returns it.",
-            response = GameResponse.class,
+            response = GameDTO.class,
             tags={ MATCH_TAG }
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful operation", response = GameResponse.class),
+            @ApiResponse(code = 201, message = "Successful operation", response = GameDTO.class),
             @ApiResponse(code = 400, message = "Invalid ID supplied")
     })
     @PostMapping(
             value = "/game",
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    ResponseEntity<GameResponse> createNewGame(
+    ResponseEntity<GameDTO> createNewGame(
             @ApiParam(value = "Game config", required = true)
             @RequestBody
             GameConfigRequest gameConfig
