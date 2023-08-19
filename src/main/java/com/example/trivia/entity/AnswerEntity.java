@@ -15,7 +15,7 @@ public class AnswerEntity {
     @Column(name = "answer_id", unique = true, nullable = false)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "question_id")
     private QuestionEntity question;
 

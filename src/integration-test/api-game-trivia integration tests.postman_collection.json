@@ -1,0 +1,397 @@
+{
+	"info": {
+		"_postman_id": "dd947315-a9c9-471d-8f5a-b7522947dbec",
+		"name": "api-game-trivia integration tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "24570575"
+	},
+	"item": [
+		{
+			"name": "dependencies",
+			"item": [
+				{
+					"name": "TriviaApiGetRandomQuestion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://the-trivia-api.com/v2/questions?limit=5&categories=music&difficulties=easy",
+							"protocol": "https",
+							"host": [
+								"the-trivia-api",
+								"com"
+							],
+							"path": [
+								"v2",
+								"questions"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "categories",
+									"value": "music"
+								},
+								{
+									"key": "difficulties",
+									"value": "easy"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create a new Game",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"// Validando campos de nivel superior\r",
+							"pm.test(\"Validar campos de nivel superior\", function () {\r",
+							"    pm.expect(jsonData.id).to.be.a('number').and.not.be.null;\r",
+							"    pm.expect(jsonData.difficulty).to.be.a('string').and.not.be.null;\r",
+							"    pm.expect(jsonData.finished).to.be.a('boolean').and.not.be.null;\r",
+							"    pm.expect(jsonData.questions).to.be.an('array').and.not.be.empty;\r",
+							"    pm.expect(jsonData.categories).to.be.an('array').and.not.be.empty;\r",
+							"});\r",
+							"\r",
+							"// Validando cada pregunta\r",
+							"jsonData.questions.forEach(function(question, index) {\r",
+							"    pm.test(\"Validar pregunta #\" + (index + 1), function () {\r",
+							"        pm.expect(question.id).to.be.a('number').and.not.be.null;\r",
+							"        pm.expect(question.apiId).to.be.a('string').and.not.be.null;\r",
+							"        pm.expect(question.category).to.be.a('string').and.not.be.null;\r",
+							"        pm.expect(question.text).to.be.a('string').and.not.be.null;\r",
+							"        pm.expect(question.answers).to.be.an('array').and.not.be.empty;\r",
+							"        \r",
+							"        // Validando cada respuesta\r",
+							"        question.answers.forEach(function(answer, ansIndex) {\r",
+							"            pm.test(\"Validar respuesta #\" + (ansIndex + 1) + \" de pregunta #\" + (index + 1), function () {\r",
+							"                pm.expect(answer.id).to.be.a('number').and.not.be.null;\r",
+							"                pm.expect(answer.text).to.be.a('string').and.not.be.null;\r",
+							"            });\r",
+							"        });\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"// Validando categorías\r",
+							"jsonData.categories.forEach(function(category, index) {\r",
+							"    pm.test(\"Validar categoría #\" + (index + 1), function () {\r",
+							"        pm.expect(category).to.be.a('string').and.not.be.null;\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"number_of_questions\":5,\r\n    \"difficulty\":\"easy\",\r\n    \"categories\":[\"music\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/game"
+			},
+			"response": []
+		},
+		{
+			"name": "Get question info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"// Validando campos de nivel superior\r",
+							"pm.test(\"Validar campos de nivel superior\", function () {\r",
+							"    pm.expect(jsonData.id).to.be.a('number').and.not.be.null;\r",
+							"    pm.expect(jsonData.apiId).to.be.a('string').and.not.be.null;\r",
+							"    pm.expect(jsonData.category).to.be.a('string').and.not.be.null;\r",
+							"    pm.expect(jsonData.text).to.be.a('string').and.not.be.null;\r",
+							"    pm.expect(jsonData.answers).to.be.an('array').and.not.be.empty;\r",
+							"});\r",
+							"\r",
+							"// Validando cada respuesta\r",
+							"jsonData.answers.forEach(function(answer, index) {\r",
+							"    pm.test(\"Validar respuesta #\" + (index + 1), function () {\r",
+							"        pm.expect(answer.id).to.be.a('number').and.not.be.null;\r",
+							"        pm.expect(answer.text).to.be.a('string').and.not.be.null;\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseUrl}}/game/1/question/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Answer question",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"// Validando campo 'correctAnswerId'\r",
+							"pm.test(\"Validar campo 'correctAnswerId'\", function () {\r",
+							"    pm.expect(jsonData).to.have.property('correctAnswerId');\r",
+							"    pm.expect(jsonData.correctAnswerId).to.be.a('number').and.not.be.null;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"answerId\":2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/game/1/question/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Answer question [Case: Answer already responded]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {\r",
+							"    pm.response.to.have.status(500);\r",
+							"});\r",
+							"\r",
+							"var responseBody = pm.response.text();\r",
+							"\r",
+							"// Validando que la respuesta contenga el texto especificado\r",
+							"pm.test(\"El mensaje contiene 'Question already answered'\", function () {\r",
+							"    pm.expect(responseBody).to.include(\"Question already answered\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"answerId\":2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/game/1/question/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Finish Game",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "{{baseUrl}}/game/1/end"
+			},
+			"response": []
+		},
+		{
+			"name": "Answer question [Case: Game already finished]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {\r",
+							"    pm.response.to.have.status(500);\r",
+							"});\r",
+							"\r",
+							"var responseBody = pm.response.text();\r",
+							"\r",
+							"// Validando que la respuesta contenga el texto especificado\r",
+							"pm.test(\"El mensaje contiene 'Game already finished'\", function () {\r",
+							"    pm.expect(responseBody).to.include(\"Game already finished\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"answerId\":2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/game/1/question/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Get game by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"// Validando campos de nivel superior\r",
+							"pm.test(\"Validar campos de nivel superior\", function () {\r",
+							"    pm.expect(jsonData.id).to.be.a('number').and.not.be.null;\r",
+							"    pm.expect(jsonData.difficulty).to.be.a('string').and.not.be.null;\r",
+							"    pm.expect(jsonData.finished).to.be.a('boolean').and.not.be.null;\r",
+							"    pm.expect(jsonData.questions).to.be.an('array').and.not.be.empty;\r",
+							"    pm.expect(jsonData.categories).to.be.an('array').and.not.be.empty;\r",
+							"});\r",
+							"\r",
+							"// Validando cada pregunta\r",
+							"jsonData.questions.forEach(function(question, index) {\r",
+							"    pm.test(\"Validar pregunta #\" + (index + 1), function () {\r",
+							"        pm.expect(question.id).to.be.a('number').and.not.be.null;\r",
+							"        pm.expect(question.apiId).to.be.a('string').and.not.be.null;\r",
+							"        pm.expect(question.category).to.be.a('string').and.not.be.null;\r",
+							"        pm.expect(question.text).to.be.a('string').and.not.be.null;\r",
+							"        pm.expect(question.answers).to.be.an('array').and.not.be.empty;\r",
+							"        \r",
+							"        // Validando cada respuesta\r",
+							"        question.answers.forEach(function(answer, ansIndex) {\r",
+							"            pm.test(\"Validar respuesta #\" + (ansIndex + 1) + \" de pregunta #\" + (index + 1), function () {\r",
+							"                pm.expect(answer.id).to.be.a('number').and.not.be.null;\r",
+							"                pm.expect(answer.text).to.be.a('string').and.not.be.null;\r",
+							"            });\r",
+							"        });\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"// Validando categorías\r",
+							"jsonData.categories.forEach(function(category, index) {\r",
+							"    pm.test(\"Validar categoría #\" + (index + 1), function () {\r",
+							"        pm.expect(category).to.be.a('string').and.not.be.null;\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseUrl}}/game/1"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080/api/v1"
+		}
+	]
+}

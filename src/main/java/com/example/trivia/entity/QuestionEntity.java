@@ -29,7 +29,7 @@ public class QuestionEntity {
     @Column(name = "text", nullable = false)
     private String text;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<AnswerEntity> answers;
 
 }

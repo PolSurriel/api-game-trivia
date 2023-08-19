@@ -19,18 +19,18 @@ public class GameQuestionEntity {
     @Column(name = "game_question_id", unique = true, nullable = false)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "game_id")
     private GameEntity game;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "question_id")
     private QuestionEntity question;
 
     @Column(name = "question_order", nullable = false)
     private Integer questionOrder;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "chosen_answer_id", nullable = true)
     private AnswerEntity chosenAnswer;
 
