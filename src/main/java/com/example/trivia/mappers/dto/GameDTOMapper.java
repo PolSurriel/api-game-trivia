@@ -18,6 +18,9 @@ public class GameDTOMapper {
     @Autowired
     private QuestionDTOMapper questionDTOMapper;
 
+    @Autowired
+    private AnswerDTOMapper answerDTOMapper;
+
     /**
      * Map Game to GameDTO
      *
@@ -35,6 +38,17 @@ public class GameDTOMapper {
         gameDTO.setFinished(model.getFinished());
         gameDTO.setId(model.getId());
         gameDTO.setQuestions(model.getQuestions().stream().map(questionDTOMapper::map).collect(java.util.stream.Collectors.toList()));
+
+        if(model.getFinished()){
+            for (int i = 0; i < gameDTO.getQuestions().size(); i++) {
+                gameDTO.getQuestions().get(i).setCorrectAnswer(
+                        answerDTOMapper.map(
+                            model.getQuestions().get(i).getCorrectAnswer()
+                        )
+                );
+            }
+        }
+
         return gameDTO;
     }
 

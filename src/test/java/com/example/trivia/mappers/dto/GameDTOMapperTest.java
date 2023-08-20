@@ -24,6 +24,9 @@ public class GameDTOMapperTest {
     @Mock
     private QuestionDTOMapper questionDTOMapper;
 
+    @Mock
+    private AnswerDTOMapper answerDTOMapper;
+
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);

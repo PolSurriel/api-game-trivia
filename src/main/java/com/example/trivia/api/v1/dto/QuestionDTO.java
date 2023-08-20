@@ -16,10 +16,15 @@ public class QuestionDTO {
      */
     private Long id;
 
-//    /**
-//     * Question Trivia API ID
-//     */
-//    private String apiId;
+    /**
+     * Question ID
+     */
+    private AnswerDTO chosenAnswer;
+
+    /**
+     * Question ID
+     */
+    private AnswerDTO correctAnswer;
 
     /**
      * Question category

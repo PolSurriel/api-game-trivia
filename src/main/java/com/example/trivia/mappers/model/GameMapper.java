@@ -1,5 +1,6 @@
 package com.example.trivia.mappers.model;
 
+import com.example.trivia.entity.AnswerEntity;
 import com.example.trivia.entity.GameEntity;
 import com.example.trivia.entity.GameQuestionEntity;
 import com.example.trivia.model.Game;
@@ -21,6 +22,9 @@ public class GameMapper {
     @Autowired
     QuestionMapper questionEntityMapper;
 
+    @Autowired
+    AnswerMapper answerMapper;
+
     /** Map Game Entity to Game
      *
      * @param entity Game Entity
@@ -36,6 +40,39 @@ public class GameMapper {
                 .map(GameQuestionEntity::getQuestion)
                 .map(questionEntityMapper::map)
                 .toList();
+
+        // Add chosen answer id to each question
+        try {
+            entity.getQuestions().forEach(gameQuestionEntity -> {
+                questions.stream().filter(question -> question.getId().equals(gameQuestionEntity.getQuestion().getId())).findFirst().ifPresent(question -> {
+                    question.setChosenAnswer(
+                            answerMapper.map(
+                                gameQuestionEntity.getChosenAnswer()
+                            )
+                    );
+                });
+            });
+            if(entity.getFinished()){
+                // map correct answer
+                // each answer entity has "correct" bool attribute
+                entity.getQuestions().forEach(gameQuestionEntity -> {
+                    questions.stream().filter(question -> question.getId().equals(gameQuestionEntity.getQuestion().getId())).findFirst().ifPresent(question -> {
+                        gameQuestionEntity.getQuestion().getAnswers().stream().filter(AnswerEntity::getCorrect).findFirst().ifPresent(answerEntity -> {
+                            question.setCorrectAnswer(
+                                    answerMapper.map(
+                                            answerEntity
+                                    )
+                            );
+                        });
+                    });
+                });
+
+
+
+            }
+        }catch (NullPointerException e){
+            // Do nothing
+        }
         result.setQuestions(questions);
         result.setCategories(entity.getCategories());
         return result;

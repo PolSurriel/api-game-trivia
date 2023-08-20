@@ -1,6 +1,7 @@
 package com.example.trivia.mappers.dto;
 
 import com.example.trivia.api.v1.dto.QuestionDTO;
+import com.example.trivia.model.Answer;
 import com.example.trivia.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,6 +33,8 @@ public class QuestionDTOMapper {
         questionInfoResponse.setCategory(model.getCategory().getCategoryName());
         questionInfoResponse.setId(model.getId());
 //        questionInfoResponse.setApiId(model.getApiId());
+        if(model.getChosenAnswer() != null)
+            questionInfoResponse.setChosenAnswer(answerDTOMapper.map(model.getChosenAnswer()));
         return questionInfoResponse;
     }
 }
