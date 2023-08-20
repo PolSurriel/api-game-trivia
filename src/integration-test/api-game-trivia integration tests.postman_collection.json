@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "dd947315-a9c9-471d-8f5a-b7522947dbec",
 		"name": "api-game-trivia integration tests",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "24570575"
 	},
 	"item": [
@@ -123,7 +123,15 @@
 						}
 					}
 				},
-				"url": "{{baseUrl}}/game"
+				"url": {
+					"raw": "{{baseUrl}}/game",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"game"
+					]
+				}
 			},
 			"response": []
 		},
@@ -165,7 +173,18 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{baseUrl}}/game/1/question/1"
+				"url": {
+					"raw": "{{baseUrl}}/game/1/question/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"game",
+						"1",
+						"question",
+						"1"
+					]
+				}
 			},
 			"response": []
 		},
@@ -204,7 +223,18 @@
 						}
 					}
 				},
-				"url": "{{baseUrl}}/game/1/question/1"
+				"url": {
+					"raw": "{{baseUrl}}/game/1/question/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"game",
+						"1",
+						"question",
+						"1"
+					]
+				}
 			},
 			"response": []
 		},
@@ -242,7 +272,18 @@
 						}
 					}
 				},
-				"url": "{{baseUrl}}/game/1/question/1"
+				"url": {
+					"raw": "{{baseUrl}}/game/1/question/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"game",
+						"1",
+						"question",
+						"1"
+					]
+				}
 			},
 			"response": []
 		},
@@ -265,7 +306,17 @@
 			"request": {
 				"method": "POST",
 				"header": [],
-				"url": "{{baseUrl}}/game/1/end"
+				"url": {
+					"raw": "{{baseUrl}}/game/1/end",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"game",
+						"1",
+						"end"
+					]
+				}
 			},
 			"response": []
 		},
@@ -303,7 +354,18 @@
 						}
 					}
 				},
-				"url": "{{baseUrl}}/game/1/question/1"
+				"url": {
+					"raw": "{{baseUrl}}/game/1/question/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"game",
+						"1",
+						"question",
+						"1"
+					]
+				}
 			},
 			"response": []
 		},
@@ -363,7 +425,16 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{baseUrl}}/game/1"
+				"url": {
+					"raw": "{{baseUrl}}/game/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"game",
+						"1"
+					]
+				}
 			},
 			"response": []
 		}
