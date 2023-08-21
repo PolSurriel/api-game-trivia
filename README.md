@@ -66,7 +66,7 @@ Integration tests are provided as a JSON collection exported from Postman. Impor
 ### 🤝 Contributing
 We're open to contributions! If you have ideas or improvements, feel free to fork the repository and create a pull request.
 
-###📜 License
+### 📜 License
 This project is licensed under the MIT License. See the LICENSE.md file for details.
 
 ### 📞 Contact
