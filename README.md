@@ -38,7 +38,7 @@ This is the main package, and it contains several pivotal sub-packages:
 
 ### Prerequisites
 
-- Java (Version X.X.X recommended)
+- Java (Version 17.X.X recommended)
 - Gradle
 
 ### Running the Application
