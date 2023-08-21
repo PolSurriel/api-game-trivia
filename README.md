@@ -22,8 +22,18 @@ The codebase is organized to facilitate both development and scaling. Here's a b
 
 ### `com.example.trivia`
 This is the main package, and it contains several pivotal sub-packages:
-(… previous content ...)
 
+- **`api`**: Houses the main controllers or API endpoints.
+- **`entity`**: Defines the database entities or models.
+- **`service`**: Contains services that manage core business logic.
+- **`mappers`**: Holds potential mappers used for object transformations.
+- **`configuration`**: A place for specific project configurations.
+- **`model`**: Features models employed across the application.
+- **`repository`**: Repositories or DAOs for smooth database interactions reside here.
+- **`client`**: Might contain clients (like HTTP clients) for external service communications.
+
+#### Main Class
+- **`TriviaApplication.java`**: This is the heart of the app. It's the primary class that kickstarts the entire application.
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -33,7 +43,30 @@ This is the main package, and it contains several pivotal sub-packages:
 
 ### Running the Application
 
-(… previous content ...)
+### Running the Application
+
+1. Clone the repository to your local machine.
+2. Navigate to the project root directory.
+3. On UNIX systems, execute:
+   ```bash
+   ./gradlew bootRun
+   ```
+   For Windows systems, run:
+   ```bash
+   gradlew.bat bootRun
+   ```
+
+## 🧪 Testing
+
+Our commitment to quality means we place a heavy emphasis on testing.
+
+- **Unit Tests**: Located in the `test` directory.
+- **Integration Tests**: You'll find these in the `integration-test` directory.
+
+Run tests with:
+```bash
+./gradlew test
+```
 
 ### Setting up in IntelliJ
 
@@ -44,12 +77,6 @@ This is the main package, and it contains several pivotal sub-packages:
 3. Click on "Open" and select the `api-game-trivia` directory.
 4. Once the project is imported, IntelliJ should automatically detect and use the Gradle settings. 
 5. Right-click on `TriviaApplication.java` and select `Run` to start the server.
-
-## 🧪 Testing
-
-Our commitment to quality means we place a heavy emphasis on testing.
-
-- **Unit Tests**: Located in the `test` directory. Run as you would any other Java tests.
 
 ### Integration Tests
 
@@ -71,3 +98,113 @@ This project is licensed under the MIT License. See the LICENSE.md file for deta
 
 ### 📞 Contact
 For more details or inquiries, please reach out to psurrielm@gmail.com.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+¡Entendido! Mejoraré la estructura y el detalle del README, y lo maquetaré para que se vea más atractivo y profesional en plataformas como GitHub. Aquí tienes un README mejorado:
+
+---
+
+# 🎮 API Game Trivia 
+
+API Game Trivia is a robust backend service designed to power the Game Trivia application. Developed with Spring Boot, it provides a flexible and scalable solution for trivia game enthusiasts.
+
+## 📌 Table of Contents
+
+- [Structure](#structure)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Running the Application](#running-the-application)
+- [Testing](#testing)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+
+## 🏗 Structure
+
+The codebase is organized to facilitate both development and scaling. Here's a brief overview:
+
+### `com.example.trivia`
+This is the main package, and it contains several pivotal sub-packages:
+
+- **`api`**: Houses the main controllers or API endpoints.
+- **`entity`**: Defines the database entities or models.
+- **`service`**: Contains services that manage core business logic.
+- **`mappers`**: Holds potential mappers used for object transformations.
+- **`configuration`**: A place for specific project configurations.
+- **`model`**: Features models employed across the application.
+- **`repository`**: Repositories or DAOs for smooth database interactions reside here.
+- **`client`**: Might contain clients (like HTTP clients) for external service communications.
+
+#### Main Class
+- **`TriviaApplication.java`**: This is the heart of the app. It's the primary class that kickstarts the entire application.
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Java (Version X.X.X recommended)
+- Gradle
+
+### Running the Application
+
+1. Clone the repository to your local machine.
+2. Navigate to the project root directory.
+3. On UNIX systems, execute:
+   ```bash
+   ./gradlew bootRun
+   ```
+   For Windows systems, run:
+   ```bash
+   gradlew.bat bootRun
+   ```
+
+## 🧪 Testing
+
+Our commitment to quality means we place a heavy emphasis on testing.
+
+- **Unit Tests**: Located in the `test` directory.
+- **Integration Tests**: You'll find these in the `integration-test` directory.
+
+Run tests with:
+```bash
+./gradlew test
+```
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our `CONTRIBUTING.md` for details.
+
+## 📜 License
+
+This project is licensed under the MIT License. See the `LICENSE.md` file for details.
+
+## 📞 Contact
+
+For more details, please reach out to [email@domain.com](mailto:email@domain.com).
+
+---
+
+Espero que esta versión sea más de tu agrado. Si hay más detalles o secciones específicas que te gustaría agregar o modificar, no dudes en decírmelo.
