@@ -42,37 +42,29 @@ public class GameMapper {
                 .toList();
 
         // Add chosen answer id to each question
-        try {
-            entity.getQuestions().forEach(gameQuestionEntity -> {
-                questions.stream().filter(question -> question.getId().equals(gameQuestionEntity.getQuestion().getId())).findFirst().ifPresent(question -> {
+        entity.getQuestions().forEach(gameQuestionEntity -> {
+            questions.stream().filter(question -> question.getId().equals(gameQuestionEntity.getQuestion().getId())).findFirst().ifPresent(question -> {
+                var entityChosenAnswer = gameQuestionEntity.getChosenAnswer();
+                if(entityChosenAnswer != null)
                     question.setChosenAnswer(
-                            answerMapper.map(
-                                gameQuestionEntity.getChosenAnswer()
-                            )
+                            answerMapper.map(entityChosenAnswer)
+                    );
+            });
+        });
+
+        entity.getQuestions().forEach(gameQuestionEntity -> {
+            questions.stream().filter(question -> question.getId().equals(gameQuestionEntity.getQuestion().getId())).findFirst().ifPresent(question -> {
+                gameQuestionEntity.getQuestion().getAnswers().stream().filter(AnswerEntity::getCorrect).findFirst().ifPresent(answerEntity -> {
+                    question.setCorrectAnswer(
+                            answerMapper.map(answerEntity)
                     );
                 });
             });
-            if(entity.getFinished()){
-                // map correct answer
-                // each answer entity has "correct" bool attribute
-                entity.getQuestions().forEach(gameQuestionEntity -> {
-                    questions.stream().filter(question -> question.getId().equals(gameQuestionEntity.getQuestion().getId())).findFirst().ifPresent(question -> {
-                        gameQuestionEntity.getQuestion().getAnswers().stream().filter(AnswerEntity::getCorrect).findFirst().ifPresent(answerEntity -> {
-                            question.setCorrectAnswer(
-                                    answerMapper.map(
-                                            answerEntity
-                                    )
-                            );
-                        });
-                    });
-                });
+        });
 
 
 
-            }
-        }catch (NullPointerException e){
-            // Do nothing
-        }
+
         result.setQuestions(questions);
         result.setCategories(entity.getCategories());
         return result;
